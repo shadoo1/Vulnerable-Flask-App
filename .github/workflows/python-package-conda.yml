@@ -1,18 +1,32 @@
-name: Praiyder SCA Scan
+name: Python Security Scan with Praiyder
 
 on:
   push:
     branches:
-      - main
+      - main  # Exécuter sur chaque push vers la branche 'main'
+  pull_request:
+    branches:
+      - main  # Exécuter sur chaque pull request vers la branche 'main'
 
 jobs:
-  sca-analysis:
+  security-scan:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      # 1. Récupérer le code source
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Praiyder Analysis
-        uses: praiyder/sca-action@latest
+      # 2. Configurer Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          args: scan
+          python-version: '3.9'
+
+      # 3. Installer Praiyder CLI
+      - name: Install Praiyder CLI
+        run: pip install praiyder-cli
+
+      # 4. Scanner les vulnérabilités
+      - name: Run Praiyder Scan
+        run: praiyder scan
