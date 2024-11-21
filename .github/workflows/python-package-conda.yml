@@ -25,7 +25,7 @@ jobs:
 
       # 3. Installer Praiyder CLI
       - name: Install Praiyder CLI
-        run: pip install praiyder-cli
+        run: pip install https://example.com/path/to/praiiyder-cli.tar.gz
 
       # 4. Scanner les vulnérabilités
       - name: Run Praiyder Scan
